@@ -1,0 +1,90 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SeewoToolbox.ViewModels"
+        x:Class="SeewoToolbox.Views.DownloadProgressWindow"
+        x:DataType="vm:MainViewModel"
+        Title="下载进度"
+        Width="600" Height="450"
+        MinWidth="400" MinHeight="300"
+        WindowStartupLocation="CenterOwner"
+        CanResize="false">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0"
+                   Text="正在下载并安装..."
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,16" />
+
+        <!-- Progress Bar -->
+        <ProgressBar Grid.Row="1"
+                     Value="{Binding DownloadProgress}"
+                     Minimum="0" Maximum="1"
+                     Height="8"
+                     CornerRadius="4"
+                     Margin="0,0,0,8" />
+
+        <!-- Speed & Limit -->
+        <Grid Grid.Row="2" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Text="{Binding DownloadSpeed}"
+                       FontSize="13"
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                       VerticalAlignment="Center" />
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                <TextBlock Text="限速 (KB/s):" FontSize="12" VerticalAlignment="Center" />
+                <Slider Value="{Binding SpeedLimit}"
+                        Minimum="0" Maximum="10240"
+                        TickFrequency="256"
+                        IsSnapToTickEnabled="False"
+                        Width="150"
+                        VerticalAlignment="Center" />
+                <TextBlock Text="{Binding SpeedLimit, StringFormat={}{0:D}}"
+                           FontSize="12"
+                           Width="50"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Log Area -->
+        <Border Grid.Row="3"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                BorderThickness="1"
+                CornerRadius="4"
+                Margin="0,0,0,12">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TextBox Text="{Binding DownloadLog}"
+                         IsReadOnly="true"
+                         AcceptsReturn="true"
+                         TextWrapping="Wrap"
+                         FontFamily="Consolas, Microsoft YaHei Mono, monospace"
+                         FontSize="12"
+                         BorderThickness="0"
+                         Background="Transparent" />
+            </ScrollViewer>
+        </Border>
+
+        <!-- Cancel Button -->
+        <Button Grid.Row="4"
+                Content="取消"
+                HorizontalAlignment="Center"
+                Padding="40,10"
+                CornerRadius="6"
+                Command="{Binding $parent[Window].Close}" />
+    </Grid>
+</Window>

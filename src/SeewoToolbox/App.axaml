@@ -1,0 +1,22 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SeewoToolbox.App"
+             RequestedThemeVariant="Light">
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Light: Clean white + blue-violet accent -->
+            <SolidColorBrush x:Key="PageBackgroundBrush" Color="#F8F9FE" />
+            <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="ButtonHoverBrush" Color="#EEEDF5" />
+            <SolidColorBrush x:Key="HeaderForegroundBrush" Color="#1B1B2F" />
+            <SolidColorBrush x:Key="SubtextForegroundBrush" Color="#7C7C9A" />
+            <SolidColorBrush x:Key="AccentBrush" Color="#6C5CE7" />
+            <SolidColorBrush x:Key="AccentLightBrush" Color="#A29BFE" />
+            <SolidColorBrush x:Key="CardBorderBrush" Color="#E8E6F0" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

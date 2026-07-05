@@ -1,0 +1,272 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SeewoToolbox.ViewModels"
+             x:Class="SeewoToolbox.Views.MainView"
+             x:DataType="vm:MainViewModel"
+             DataContext="{Binding $parent[Window].DataContext}">
+
+    <UserControl.Styles>
+        <!-- Card style -->
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="BoxShadow" Value="0 2 8 0 rgba(0,0,0,0.08)" />
+        </Style>
+
+        <!-- Card title -->
+        <Style Selector="TextBlock.cardTitle">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+
+        <!-- Action button -->
+        <Style Selector="Button.toolBtn">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.toolBtn:pointerover">
+            <Setter Property="Background" Value="{DynamicResource ButtonHoverBrush}" />
+            <Setter Property="Opacity" Value="0.9" />
+            <Setter Property="RenderTransform" Value="scale(1.02)" />
+        </Style>
+        <Style Selector="Button.toolBtn:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.98)" />
+        </Style>
+
+        <!-- Header button -->
+        <Style Selector="Button.headerBtn">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.headerBtn:pointerover">
+            <Setter Property="Background" Value="{DynamicResource ButtonHoverBrush}" />
+            <Setter Property="Opacity" Value="0.85" />
+        </Style>
+    </UserControl.Styles>
+
+    <Panel Background="{DynamicResource SystemControlAcrylicElementBrush}">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- ===== Header ===== -->
+            <Border Grid.Row="0" Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="希沃工具箱 3.0"
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+                        <TextBlock Text="我是从前那个少年 | v3.1.0.102"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="8"
+                                VerticalAlignment="Center">
+                        <Button Classes="headerBtn"
+                                Content="{Binding ThemeIcon}"
+                                Command="{Binding ToggleThemeCommand}"
+                                ToolTip.Tip="切换主题" />
+                        <Button Classes="headerBtn"
+                                Content="检查更新"
+                                Command="{Binding CheckUpdateCommand}"
+                                ToolTip.Tip="检查新版本" />
+                        <TextBlock Text="{Binding UpdateStatus}"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   VerticalAlignment="Center"
+                                   Margin="8,0,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- ===== Main Content - 4 Column Card Grid ===== -->
+            <ScrollViewer Grid.Row="1">
+                <Grid ColumnDefinitions="*,*,*,*">
+
+                    <!-- Column 1: 常用工具 -->
+                    <Border Classes="card">
+                        <StackPanel>
+                            <TextBlock Classes="cardTitle" Text="常用工具" />
+
+                            <Button Classes="toolBtn" Command="{Binding InstallWeChatCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="💬" FontSize="22" />
+                                    <TextBlock Text="安装微信" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding InstallQQCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="🐧" FontSize="22" />
+                                    <TextBlock Text="安装QQ" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding InstallPCManagerCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="🛡️" FontSize="22" />
+                                    <TextBlock Text="腾讯电脑管家" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding NavigateToMoreToolsCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="📦" FontSize="22" />
+                                    <TextBlock Text="更多工具" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Column 2: 希沃工具 -->
+                    <Border Classes="card">
+                        <StackPanel>
+                            <TextBlock Classes="cardTitle" Text="希沃工具" />
+
+                            <Button Classes="toolBtn" Command="{Binding NavigateToSeewoSetupCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="🚀" FontSize="22" />
+                                    <TextBlock Text="一键开荒" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding NavigateToSeewoSetupCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="📋" FontSize="22" />
+                                    <TextBlock Text="更多希沃软件" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding ThawDisksCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="🔓" FontSize="22" />
+                                    <TextBlock Text="解冻磁盘" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding FreezeCDriveCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="❄️" FontSize="22" />
+                                    <TextBlock Text="冻结C盘" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding FreezeAllDisksCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="🧊" FontSize="22" />
+                                    <TextBlock Text="冻结全部" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="⚙️" FontSize="22" />
+                                    <TextBlock Text="高级配置" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Column 3: 系统工具 -->
+                    <Border Classes="card">
+                        <StackPanel>
+                            <TextBlock Classes="cardTitle" Text="系统工具" />
+
+                            <Button Classes="toolBtn" Command="{Binding ActivateWindowsCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="🔑" FontSize="22" />
+                                    <TextBlock Text="激活Windows" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding RebootToRecoveryCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="🔄" FontSize="22" />
+                                    <TextBlock Text="重启到恢复模式" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding DownloadOriginalWindowsCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="💿" FontSize="22" />
+                                    <TextBlock Text="下载原版Windows" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Column 4: 关于作者 -->
+                    <Border Classes="card">
+                        <StackPanel>
+                            <TextBlock Classes="cardTitle" Text="关于作者" />
+
+                            <Button Classes="toolBtn" Command="{Binding OpenAuthorHomepageCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="👤" FontSize="22" />
+                                    <TextBlock Text="联系作者" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding OpenAstraCoreCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="🌟" FontSize="22" />
+                                    <TextBlock Text="访问作者主页" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Classes="toolBtn" Command="{Binding OpenAuthorHomepageCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="🌐" FontSize="22" />
+                                    <TextBlock Text="访问作者主页" FontSize="15" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+
+            <!-- ===== Footer Disclaimer ===== -->
+            <Border Grid.Row="2" Margin="0,16,0,0" Padding="0,10,0,0"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                    BorderThickness="0,1,0,0">
+                <TextBlock Text="本工具仅供学习交流使用，使用者需自行承担一切风险"
+                           FontSize="11"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                           HorizontalAlignment="Center" />
+            </Border>
+        </Grid>
+    </Panel>
+</UserControl>

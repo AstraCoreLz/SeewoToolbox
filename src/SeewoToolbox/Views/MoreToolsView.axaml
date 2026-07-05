@@ -1,0 +1,165 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SeewoToolbox.ViewModels"
+             x:Class="SeewoToolbox.Views.MoreToolsView"
+             x:DataType="vm:MainViewModel"
+             DataContext="{Binding $parent[Window].DataContext}">
+
+    <UserControl.Styles>
+        <!-- Card style -->
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="BoxShadow" Value="0 2 8 0 rgba(0,0,0,0.08)" />
+        </Style>
+
+        <!-- Card title -->
+        <Style Selector="TextBlock.cardTitle">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+
+        <!-- Action button -->
+        <Style Selector="Button.toolBtn">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.toolBtn:pointerover">
+            <Setter Property="Background" Value="{DynamicResource ButtonHoverBrush}" />
+            <Setter Property="Opacity" Value="0.9" />
+            <Setter Property="RenderTransform" Value="scale(1.02)" />
+        </Style>
+        <Style Selector="Button.toolBtn:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.98)" />
+        </Style>
+
+        <!-- Header button -->
+        <Style Selector="Button.headerBtn">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.headerBtn:pointerover">
+            <Setter Property="Opacity" Value="0.85" />
+        </Style>
+    </UserControl.Styles>
+
+    <Panel Background="{DynamicResource SystemControlAcrylicElementBrush}">
+        <Grid Margin="40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Classes="headerBtn"
+                        Content="&lt; 返回"
+                        Command="{Binding NavigateBackCommand}"
+                        Margin="0,0,20,0" />
+
+                <TextBlock Grid.Column="1"
+                           Text="更多工具"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+            </Grid>
+
+            <!-- Tool Cards -->
+            <Grid Grid.Row="1" ColumnDefinitions="*,*,*">
+
+                <!-- 简易课程表 -->
+                <Border Classes="card">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="📅"
+                                   FontSize="48"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,12" />
+                        <TextBlock Classes="cardTitle"
+                                   Text="简易课程表"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="快速查看每日课程安排"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,16" />
+                        <Button Classes="toolBtn"
+                                HorizontalAlignment="Center">
+                            <TextBlock Text="打开" FontSize="14" VerticalAlignment="Center" />
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- 中高考倒计时 -->
+                <Border Classes="card">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="⏰"
+                                   FontSize="48"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,12" />
+                        <TextBlock Classes="cardTitle"
+                                   Text="中高考倒计时"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="距离重要考试还有多少天"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,16" />
+                        <Button Classes="toolBtn"
+                                HorizontalAlignment="Center">
+                            <TextBlock Text="打开" FontSize="14" VerticalAlignment="Center" />
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- 桌面收纳盒 -->
+                <Border Classes="card">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="🗂️"
+                                   FontSize="48"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,12" />
+                        <TextBlock Classes="cardTitle"
+                                   Text="桌面收纳盒"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="整理桌面图标，让桌面更整洁"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,16" />
+                        <Button Classes="toolBtn"
+                                HorizontalAlignment="Center">
+                            <TextBlock Text="打开" FontSize="14" VerticalAlignment="Center" />
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Panel>
+</UserControl>

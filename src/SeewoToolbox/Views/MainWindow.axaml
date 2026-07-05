@@ -1,0 +1,430 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SeewoToolbox.ViewModels"
+        xmlns:models="using:SeewoToolbox.Models"
+        x:Class="SeewoToolbox.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="希沃工具箱 3.0"
+        Width="1400" Height="800"
+        MinWidth="900" MinHeight="600"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Styles>
+        <!-- ===== Card style with entry animation ===== -->
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="Padding" Value="22" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.5" Easing="CubicEaseOut" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.5" Easing="CubicEaseOut" />
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.3" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <!-- ===== Card title ===== -->
+        <Style Selector="TextBlock.cardTitle">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource HeaderForegroundBrush}" />
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+
+        <!-- ===== Tool button with bouncy interaction ===== -->
+        <Style Selector="Button.toolBtn">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource HeaderForegroundBrush}" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="16,14" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.35" Easing="CubicEaseOut" />
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.toolBtn:pointerover">
+            <Setter Property="Background" Value="{DynamicResource ButtonHoverBrush}" />
+            <Setter Property="RenderTransform" Value="translateX(6px) scale(1.01)" />
+        </Style>
+        <Style Selector="Button.toolBtn:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.97)" />
+            <Setter Property="Opacity" Value="0.8" />
+        </Style>
+
+        <!-- ===== Header button ===== -->
+        <Style Selector="Button.headerBtn">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource HeaderForegroundBrush}" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.25" Easing="CubicEaseOut" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.headerBtn:pointerover">
+            <Setter Property="Background" Value="{DynamicResource ButtonHoverBrush}" />
+            <Setter Property="RenderTransform" Value="scale(1.05)" />
+        </Style>
+        <Style Selector="Button.headerBtn:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.95)" />
+        </Style>
+
+        <!-- ===== Action button ===== -->
+        <Style Selector="Button.actionBtn">
+            <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="44,14" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.35" Easing="CubicEaseOut" />
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                    <BrushTransition Property="Background" Duration="0:0:0.25" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.actionBtn:pointerover">
+            <Setter Property="Background" Value="{DynamicResource AccentLightBrush}" />
+            <Setter Property="RenderTransform" Value="scale(1.06)" />
+        </Style>
+        <Style Selector="Button.actionBtn:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.96)" />
+            <Setter Property="Opacity" Value="0.85" />
+        </Style>
+
+        <!-- ===== Software item ===== -->
+        <Style Selector="Border.softwareItem">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.25" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <!-- ===== Page transition via Opacity ===== -->
+        <Style Selector="Panel#pageMain">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.35" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Panel#pageSeewo">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.35" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Panel#pageMore">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.35" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+    </Window.Styles>
+
+    <Panel Background="{DynamicResource PageBackgroundBrush}">
+        <DockPanel Margin="30">
+            <!-- Header (Dock Top) -->
+            <Border DockPanel.Dock="Top" Margin="0,0,0,24">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="希沃工具箱 3.0" FontSize="28" FontWeight="Bold"
+                                   Foreground="{DynamicResource HeaderForegroundBrush}" />
+                        <TextBlock Text="我是从前那个少年 | v3.1.0.102" FontSize="12"
+                                   Foreground="{DynamicResource SubtextForegroundBrush}" Margin="0,4,0,0" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <Button Classes="headerBtn" Content="{Binding ThemeIcon}"
+                                Command="{Binding ToggleThemeCommand}" ToolTip.Tip="切换主题" />
+                        <Button Classes="headerBtn" Content="检查更新"
+                                Command="{Binding CheckUpdateCommand}" ToolTip.Tip="检查新版本" />
+                        <TextBlock Text="{Binding UpdateStatus}" FontSize="12"
+                                   Foreground="{DynamicResource SubtextForegroundBrush}"
+                                   VerticalAlignment="Center" Margin="8,0,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Footer (Dock Bottom) -->
+            <StackPanel DockPanel.Dock="Bottom" Margin="0,16,0,0" Spacing="4">
+                <TextBlock Text="本工具仅供学习交流使用，使用者需自行承担一切风险" FontSize="11"
+                           Foreground="{DynamicResource SubtextForegroundBrush}" HorizontalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="12">
+                    <Button Background="Transparent" BorderThickness="0" Padding="0" Cursor="Hand"
+                            Command="{Binding ContactAuthorCommand}"
+                            Foreground="{DynamicResource AccentBrush}" FontSize="11">
+                        <TextBlock Text="联系作者" TextDecorations="Underline" />
+                    </Button>
+                    <TextBlock Text="|" FontSize="11" Foreground="{DynamicResource SubtextForegroundBrush}" VerticalAlignment="Center" />
+                    <Button Background="Transparent" BorderThickness="0" Padding="0" Cursor="Hand"
+                            Command="{Binding OpenAuthorHomepageCommand}"
+                            Foreground="{DynamicResource AccentBrush}" FontSize="11">
+                        <TextBlock Text="访问作者主页" TextDecorations="Underline" />
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Main Content Area -->
+            <Panel>
+                <!-- PAGE 1: Main 4-Column -->
+                <Panel Name="pageMain" IsVisible="{Binding ShowMainPage}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" MinWidth="200" />
+                            <ColumnDefinition Width="*" MinWidth="200" />
+                            <ColumnDefinition Width="*" MinWidth="200" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <!-- Column 1: 常用工具 -->
+                        <Border Grid.Column="0" Classes="card" Margin="0,0,8,0">
+                            <StackPanel>
+                                <TextBlock Classes="cardTitle" Text="常用工具" />
+                                <Button Classes="toolBtn" Command="{Binding InstallWeChatCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="💬" FontSize="24" />
+                                        <TextBlock Text="安装微信" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding InstallQQCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="🐧" FontSize="24" />
+                                        <TextBlock Text="安装QQ" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding InstallPCManagerCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="🛡️" FontSize="24" />
+                                        <TextBlock Text="腾讯电脑管家" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding NavigateToMoreToolsCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="📦" FontSize="24" />
+                                        <TextBlock Text="更多工具" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Column 2: 希沃工具 -->
+                        <Border Grid.Column="1" Classes="card" Margin="8,0">
+                            <StackPanel>
+                                <TextBlock Classes="cardTitle" Text="希沃工具" />
+                                <Button Classes="toolBtn" Command="{Binding NavigateToSeewoSetupCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="🚀" FontSize="24" />
+                                        <TextBlock Text="一键开荒" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding NavigateToSeewoSetupCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="📋" FontSize="24" />
+                                        <TextBlock Text="更多希沃软件" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding ThawDisksCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="🔓" FontSize="24" />
+                                        <TextBlock Text="解冻磁盘" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding FreezeCDriveCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="❄️" FontSize="24" />
+                                        <TextBlock Text="冻结C盘" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding FreezeAllDisksCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="🧊" FontSize="24" />
+                                        <TextBlock Text="冻结全部" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding AdvancedConfigCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="⚙️" FontSize="24" />
+                                        <TextBlock Text="高级配置" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Column 3: 系统工具 -->
+                        <Border Grid.Column="2" Classes="card" Margin="8,0">
+                            <StackPanel>
+                                <TextBlock Classes="cardTitle" Text="系统工具" />
+                                <Button Classes="toolBtn" Command="{Binding ActivateWindowsCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="🔑" FontSize="24" />
+                                        <TextBlock Text="激活Windows" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding RebootToRecoveryCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="🔄" FontSize="24" />
+                                        <TextBlock Text="重启到恢复模式" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="toolBtn" Command="{Binding DownloadOriginalWindowsCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="14">
+                                        <TextBlock Text="💿" FontSize="24" />
+                                        <TextBlock Text="下载原版Windows" FontSize="15" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+
+
+                    </Grid>
+                </Panel>
+
+                <!-- PAGE 2: 希沃一键开荒 -->
+                <Panel Name="pageSeewo" IsVisible="{Binding ShowSeewoSetup}">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Classes="headerBtn" Content="&lt; 返回"
+                                    Command="{Binding NavigateBackCommand}" Margin="0,0,20,0" />
+                            <TextBlock Grid.Column="1" Text="希沃一键开荒（软件自选）"
+                                       FontSize="24" FontWeight="Bold" VerticalAlignment="Center"
+                                       Foreground="{DynamicResource HeaderForegroundBrush}" />
+                            <CheckBox Grid.Column="2" Content="全选" IsChecked="{Binding SelectAllSeewo}"
+                                      VerticalAlignment="Center" Foreground="{DynamicResource HeaderForegroundBrush}" />
+                        </Grid>
+                        <ScrollViewer Grid.Row="1">
+                            <ItemsControl ItemsSource="{Binding SeewoSoftwareList}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="models:SoftwareItem">
+                                        <Border Classes="softwareItem">
+                                            <Grid ColumnDefinitions="Auto,*">
+                                                <CheckBox IsChecked="{Binding IsSelected}" VerticalAlignment="Center" Margin="0,0,14,0" />
+                                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding Name}" FontSize="15" FontWeight="Medium"
+                                                               Foreground="{DynamicResource HeaderForegroundBrush}" />
+                                                    <TextBlock Text="{Binding Filename}" FontSize="11"
+                                                               Foreground="{DynamicResource SubtextForegroundBrush}" Margin="0,4,0,0" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                            <Button Classes="actionBtn" Content="开始开荒" Command="{Binding StartSeewoSetupCommand}" />
+                        </StackPanel>
+                    </Grid>
+                </Panel>
+
+                <!-- PAGE 3: 更多工具 -->
+                <Panel Name="pageMore" IsVisible="{Binding ShowMoreTools}">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Classes="headerBtn" Content="&lt; 返回"
+                                    Command="{Binding NavigateBackCommand}" Margin="0,0,20,0" />
+                            <TextBlock Grid.Column="1" Text="更多工具" FontSize="24" FontWeight="Bold"
+                                       VerticalAlignment="Center" Foreground="{DynamicResource HeaderForegroundBrush}" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MinWidth="200" />
+                                <ColumnDefinition Width="*" MinWidth="200" />
+                                <ColumnDefinition Width="*" MinWidth="200" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Classes="card" Margin="0,0,8,0">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="📅" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                                    <TextBlock Classes="cardTitle" Text="简易课程表" HorizontalAlignment="Center" />
+                                    <TextBlock Text="快速查看每日课程安排" FontSize="12"
+                                               Foreground="{DynamicResource SubtextForegroundBrush}"
+                                               HorizontalAlignment="Center" Margin="0,0,0,16" />
+                                    <Button Classes="toolBtn" HorizontalAlignment="Center">
+                                        <TextBlock Text="打开" FontSize="14" VerticalAlignment="Center" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="1" Classes="card" Margin="8,0">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="⏰" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                                    <TextBlock Classes="cardTitle" Text="中高考倒计时" HorizontalAlignment="Center" />
+                                    <TextBlock Text="距离重要考试还有多少天" FontSize="12"
+                                               Foreground="{DynamicResource SubtextForegroundBrush}"
+                                               HorizontalAlignment="Center" Margin="0,0,0,16" />
+                                    <Button Classes="toolBtn" HorizontalAlignment="Center">
+                                        <TextBlock Text="打开" FontSize="14" VerticalAlignment="Center" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="2" Classes="card" Margin="8,0,0,0">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="🗂️" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                                    <TextBlock Classes="cardTitle" Text="桌面收纳盒" HorizontalAlignment="Center" />
+                                    <TextBlock Text="整理桌面图标，让桌面更整洁" FontSize="12"
+                                               Foreground="{DynamicResource SubtextForegroundBrush}"
+                                               HorizontalAlignment="Center" Margin="0,0,0,16" />
+                                    <Button Classes="toolBtn" HorizontalAlignment="Center">
+                                        <TextBlock Text="打开" FontSize="14" VerticalAlignment="Center" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Panel>
+            </Panel>
+        </DockPanel>
+    </Panel>
+</Window>
