@@ -1,0 +1,33 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SeewoToolbox.App"
+             RequestedThemeVariant="Light">
+
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="ContentFont">Sarasa Gothic SC, Sarasa Gothic, Microsoft YaHei UI, Microsoft YaHei, Segoe UI, sans-serif</FontFamily>
+
+            <SolidColorBrush x:Key="PageBackgroundBrush" Color="#F5F5FA" />
+            <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="ButtonHoverBrush" Color="#F0EFF8" />
+            <SolidColorBrush x:Key="ButtonPressedBrush" Color="#E8E7F5" />
+            <SolidColorBrush x:Key="HeaderForegroundBrush" Color="#1A1A2E" />
+            <SolidColorBrush x:Key="SubtextForegroundBrush" Color="#8E8EA0" />
+            <SolidColorBrush x:Key="AccentBrush" Color="#7B68EE" />
+            <SolidColorBrush x:Key="AccentLightBrush" Color="#9B8AFB" />
+            <SolidColorBrush x:Key="AccentDarkBrush" Color="#6C5CE7" />
+            <SolidColorBrush x:Key="CardBorderBrush" Color="#E5E5F0" />
+            <SolidColorBrush x:Key="CardShadowBrush" Color="#1000001A" />
+            <SolidColorBrush x:Key="DialogBackgroundBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="DialogMaskBrush" Color="#60000000" />
+            <SolidColorBrush x:Key="WindowBorderBrush" Color="#D0D0E0" />
+            <SolidColorBrush x:Key="SuccessBrush" Color="#00C853" />
+            <SolidColorBrush x:Key="ErrorBrush" Color="#FF1744" />
+            <SolidColorBrush x:Key="WarningBrush" Color="#FF9100" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

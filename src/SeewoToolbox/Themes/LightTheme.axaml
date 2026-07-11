@@ -1,0 +1,9 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Light theme: need visible card contrast on light background -->
+    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#F3F3F3" />
+    <SolidColorBrush x:Key="ButtonHoverBrush" Color="#E5E5E5" />
+    <SolidColorBrush x:Key="PageBackgroundBrush" Color="#FAFAFA" />
+    <SolidColorBrush x:Key="HeaderForegroundBrush" Color="#1A1A1A" />
+    <SolidColorBrush x:Key="SubtextForegroundBrush" Color="#666666" />
+</ResourceDictionary>

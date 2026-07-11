@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+    <RootNamespace>SeewoToolbox</RootNamespace>
+    <AssemblyName>SeewoToolbox</AssemblyName>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <PublishTrimmed>false</PublishTrimmed>
+    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <Version>3.1.0.102</Version>
+    <FileVersion>3.1.0.102</FileVersion>
+    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <Company>熵序前言（上海）教育科技有限公司</Company>
+    <Product>希沃工具箱</Product>
+    <Copyright>Copyright (c) 2026 熵序前言（上海）教育科技有限公司. All rights reserved.</Copyright>
+    <Description>希沃工具箱 3.1 - 基于 Avalonia 的现代桌面工具集</Description>
+    <Title>希沃工具箱 3.1</Title>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.1.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.1.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.1" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.1" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.1" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Management" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Themes\**" />
+  </ItemGroup>
+</Project>
