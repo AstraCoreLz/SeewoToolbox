@@ -1,0 +1,140 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SeewoToolbox.ViewModels"
+             xmlns:models="using:SeewoToolbox.Models"
+             x:Class="SeewoToolbox.Views.SeewoSetupView"
+             x:DataType="vm:MainViewModel"
+             DataContext="{Binding $parent[Window].DataContext}">
+
+    <UserControl.Styles>
+        <!-- Action button -->
+        <Style Selector="Button.actionBtn">
+            <Setter Property="Background" Value="#0078D4" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="30,12" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.actionBtn:pointerover">
+            <Setter Property="Opacity" Value="0.85" />
+            <Setter Property="RenderTransform" Value="scale(1.02)" />
+        </Style>
+
+        <!-- Header button -->
+        <Style Selector="Button.headerBtn">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.headerBtn:pointerover">
+            <Setter Property="Opacity" Value="0.85" />
+        </Style>
+
+        <!-- Software item card -->
+        <Style Selector="Border.softwareItem">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="14,10" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Border.softwareItem:pointerover">
+            <Setter Property="Opacity" Value="0.85" />
+        </Style>
+    </UserControl.Styles>
+
+    <Panel Background="{DynamicResource SystemControlAcrylicElementBrush}">
+        <Grid Margin="40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Classes="headerBtn"
+                        Content="&lt; 返回"
+                        Command="{Binding NavigateBackCommand}"
+                        Margin="0,0,20,0" />
+
+                <TextBlock Grid.Column="1"
+                           Text="希沃一键开荒（软件自选）"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                    <CheckBox Content="全选"
+                              IsChecked="{Binding SelectAllSeewo}"
+                              VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Software List -->
+            <ScrollViewer Grid.Row="2">
+                <ItemsControl ItemsSource="{Binding SeewoSoftwareList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:SoftwareItem">
+                            <Border Classes="softwareItem">
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <CheckBox IsChecked="{Binding IsSelected}"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,14,0" />
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}"
+                                                   FontSize="15"
+                                                   FontWeight="Medium"
+                                                   Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+                                        <TextBlock Text="{Binding Filename}"
+                                                   FontSize="11"
+                                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                                   Margin="0,4,0,0" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!-- Bottom Actions -->
+            <StackPanel Grid.Row="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Spacing="16"
+                        Margin="0,20,0,0">
+                <Button Classes="actionBtn"
+                        Content="开始开荒"
+                        Command="{Binding StartSeewoSetupCommand}" />
+            </StackPanel>
+        </Grid>
+    </Panel>
+</UserControl>

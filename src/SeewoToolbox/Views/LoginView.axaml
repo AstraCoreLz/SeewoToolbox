@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SeewoToolbox.ViewModels"
+             x:Class="SeewoToolbox.Views.LoginView"
+             DataContext="{Binding $parent[Window].DataContext}">
+
+    <UserControl.Styles>
+        <!-- Button hover animation style -->
+        <Style Selector="Button.action">
+            <Setter Property="Background" Value="#0078D4" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="40,14" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.action:pointerover">
+            <Setter Property="Opacity" Value="0.85" />
+            <Setter Property="RenderTransform" Value="scale(1.03)" />
+        </Style>
+        <Style Selector="Button.action:pressed">
+            <Setter Property="Opacity" Value="0.7" />
+            <Setter Property="RenderTransform" Value="scale(0.98)" />
+        </Style>
+    </UserControl.Styles>
+
+    <Panel>
+        <Border Background="{DynamicResource SystemControlAcrylicElementBrush}"
+                CornerRadius="0">
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Logo / App Icon -->
+                <TextBlock Grid.Row="0"
+                           Text="SEEWOTOOLS"
+                           FontSize="48"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource SystemAccentColor}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,8" />
+
+                <!-- Title -->
+                <TextBlock Grid.Row="1"
+                           Text="希沃工具箱 3.0"
+                           FontSize="36"
+                           FontWeight="Light"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20" />
+
+                <!-- Author Info -->
+                <TextBlock Grid.Row="2"
+                           Text="作者: 我是从前那个少年"
+                           FontSize="14"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,40" />
+
+                <!-- Enter Button -->
+                <Button Grid.Row="3"
+                        Content="进入工具箱"
+                        Classes="action"
+                        Command="{Binding NavigateToMainCommand}"
+                        HorizontalAlignment="Center" />
+
+                <!-- Disclaimer -->
+                <TextBlock Grid.Row="4"
+                           Text="本工具仅供学习交流使用，使用者需自行承担一切风险"
+                           FontSize="11"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="0,40,0,0" />
+            </Grid>
+        </Border>
+    </Panel>
+</UserControl>
